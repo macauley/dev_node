@@ -88,6 +88,7 @@ Vagrant.configure("2") do |config|
     config.ssh.username = "macauley"
   end
   # Allow use of non-vagrant provided keys
-  config.ssh.keys_only = false
-
+  config.ssh.keys_only = false  
+  config.ssh.forward_agent = true
+  
 end
