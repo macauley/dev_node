@@ -75,6 +75,9 @@ Vagrant.configure("2") do |config|
     chef.chef_server_url = "https://mozart.macauley.me/organizations/composers"
     chef.validation_key_path = "~/Dropbox/Keychains/Keys/chef/composers.pem"
     chef.validation_client_name = 'composers-validator'
+
+    # This is a way we tell the add-current-user cookbook what user to add without using data_bags
+    chef.binary_env = "USER_TO_ADD=" + ENV['USER']
     
     # Pull in the dev role
     chef.add_role "dev"
@@ -85,7 +88,7 @@ Vagrant.configure("2") do |config|
 
   if VAGRANT_COMMAND == "ssh"
     # Use my preferred username when using 'vagrant ssh', leave default name for provisioning
-    config.ssh.username = "macauley"
+    config.ssh.username = ENV['USER'] 
   end
   # Allow use of non-vagrant provided keys
   config.ssh.keys_only = false  
